@@ -10,6 +10,7 @@
   import Notes from "reveal.js/plugin/notes/notes"
 
   import Counter from "./lib/Counter.svelte"
+  import MarkdownSlide from "./lib/MarkdownSlide.svelte"
   import TitleSlide from "./lib/slides/01-title.svelte"
 
   onMount(() => {
@@ -26,20 +27,20 @@
 <div class="reveal">
   <div class="slides">
     <TitleSlide />
-    <section data-markdown data-background-color="aquamarine">
-      <div data-template>
-        {`
-          ## Title Slide
 
-          A paragraph with some text and a [link](https://hakim.se).
+    <MarkdownSlide data-background-color="aquamarine">
+      {`
+      ## Title Slide
 
-          \`\`\`ts
-          const foo = "bar"
-          console.log(foo)
-          \`\`\`
-        `}
-      </div>
-    </section>
+      A paragraph with some text and a [link](https://hakim.se).
+
+      \`\`\`ts
+      const foo = "bar"
+      console.log(foo)
+      \`\`\`
+      `}
+    </MarkdownSlide>
+
     <section data-background-color="rgb(70, 70, 255)">
       Slide 1
       <pre><code data-trim data-noescape data-line-numbers="3,4|1|5">
