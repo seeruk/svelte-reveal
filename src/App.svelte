@@ -1,47 +1,81 @@
 <script lang="ts">
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import Counter from './lib/Counter.svelte'
+  import "reveal.js/dist/reveal.css"
+  import "reveal.js/dist/theme/black.css"
+  import "reveal.js/plugin/highlight/monokai.css"
+
+  import { onMount } from "svelte"
+  import Reveal from "reveal.js"
+  import Highlight from "reveal.js/plugin/highlight/highlight"
+  import Markdown from "reveal.js/plugin/markdown/markdown"
+  import Notes from "reveal.js/plugin/notes/notes"
+
+  import Counter from "./lib/Counter.svelte"
+  import TitleSlide from "./lib/slides/01-title.svelte"
+
+  onMount(() => {
+    const deck = new Reveal({
+      plugins: [Highlight, Markdown, Notes],
+    })
+
+    deck.initialize({
+      history: true,
+    })
+  })
 </script>
 
-<main>
-  <div>
-    <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-      <img src={viteLogo} class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
+<div class="reveal">
+  <div class="slides">
+    <TitleSlide />
+    <section data-markdown data-background-color="aquamarine">
+      <div data-template>
+        {`
+          ## Title Slide
+
+          A paragraph with some text and a [link](https://hakim.se).
+
+          \`\`\`ts
+          const foo = "bar"
+          console.log(foo)
+          \`\`\`
+        `}
+      </div>
+    </section>
+    <section data-background-color="rgb(70, 70, 255)">
+      Slide 1
+      <pre><code data-trim data-noescape data-line-numbers="3,4|1|5">
+(def lazy-fib
+  (concat
+   [0 1]
+   ((fn rfib [a b]
+        (lazy-cons (+ a b) (rfib b (+ a b)))) 0 1)))
+      </code></pre>
+    </section>
+    <section>
+      <section>Slide 2.1</section>
+      <section>Slide 2.2</section>
+      <section>Slide 2.3</section>
+    </section>
+    <section>
+      <p class="fragment">Fade in</p>
+      <p class="fragment fade-out">Fade out</p>
+      <p class="fragment highlight-red">Highlight red</p>
+      <p class="fragment fade-in-then-out">Fade in, then out</p>
+      <p class="fragment fade-up">Slide up while fading in</p>
+    </section>
+    <section>
+      <h2 class="r-fit-text">Fit Text</h2>
+      <h2 class="r-fit-text">Can be used for multiple headlines</h2>
+    </section>
+    <section>
+      <h2>Slide 5</h2>
+      <p>Has custom components!</p>
+      <Counter />
+
+      <aside class="notes">
+        Shhh, these are your private notes 📝
+      </aside>
+    </section>
+    <section>Slide 6</section>
+    <section>Slide 7</section>
   </div>
-  <h1>Vite + Svelte</h1>
-
-  <div class="card">
-    <Counter />
-  </div>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
-</main>
-
-<style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-  }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
-  }
-</style>
+</div>
